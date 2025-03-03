@@ -10,6 +10,7 @@ namespace GameCore.GameSystem.Placement
     {
         [SerializeField] InputManager inputManager;
         [SerializeField] Grid grid;
+        [SerializeField] Vector2Int gridSize;
         [SerializeField] ObjectsDatabaseSO database;
         [SerializeField] GameObject gridVisualization;
         [SerializeField] PreviewSystem preview;
@@ -25,7 +26,7 @@ namespace GameCore.GameSystem.Placement
         private void Start()
         {
             gridVisualization.SetActive(false);
-            gridData = new();
+            gridData = new(gridSize);
         }
 
         private void Update()

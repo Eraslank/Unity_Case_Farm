@@ -5,7 +5,14 @@ using UnityEngine;
 
 public class GridData
 {
-    Dictionary<Vector3Int, PlacementData> placedObjects = new();
+    Dictionary<Vector3Int, PlacementData> placedObjects;
+    Vector2Int gridSize;
+
+    public GridData(Vector2Int gridSize)
+    {
+        this.gridSize = gridSize;
+        placedObjects = new();
+    }
 
     public void AddObject(Vector3Int gridPosition, Vector2Int objectSize, int id, int placedObjectIndex)
     {
@@ -32,6 +39,9 @@ public class GridData
 
     public bool CanPlaceObjectAt(Vector3Int gridPosition, Vector2Int objectSize)
     {
+        if (gridPosition.x + objectSize.x > gridSize.x) return false;
+        if (gridPosition.z + objectSize.y > gridSize.y) return false;
+
         List<Vector3Int> positionToOccupy = CalculatePositions(gridPosition, objectSize);
         foreach (var pos in positionToOccupy)
         {

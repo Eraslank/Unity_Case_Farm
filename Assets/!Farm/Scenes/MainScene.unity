@@ -202,6 +202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputManager: {fileID: 1361743905}
   grid: {fileID: 1606184022}
+  gridSize: {x: 10, y: 10}
   database: {fileID: 11400000, guid: c4e81c69c582d864aac923559d82d80e, type: 2}
   gridVisualization: {fileID: 919788078}
   preview: {fileID: 118762239}
@@ -1012,7 +1013,7 @@ Transform:
   m_GameObject: {fileID: 1606184020}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -5, y: 0, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

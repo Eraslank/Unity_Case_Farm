@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 {
     [SerializeField] PlacementSystem placementSystem;
     [SerializeField] PhysicsRaycaster physicsRaycaster;
+
+    public PlacementSystem @PlacementSystem => placementSystem;
     private void Start()
     {
         Soil.S_CanHarvest = false;

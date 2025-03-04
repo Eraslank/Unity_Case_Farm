@@ -97,11 +97,11 @@ namespace GameCore.GameSystem.Placement
             buildingState.OnClick(lastDetectedPosition);
         }
 
-        private void StopPlacement()
+        public void StopPlacement()
         {
-            soundFeedback.PlaySound(SoundType.Click);
             if (buildingState == null)
                 return;
+            soundFeedback.PlaySound(SoundType.Click);
             gridVisualization.SetActive(false);
             buildingState.EndState();
             inputManager.OnClicked -= OnClick;

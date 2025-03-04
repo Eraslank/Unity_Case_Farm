@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GameCore.GameSystem.Placement
 {
@@ -23,6 +24,10 @@ namespace GameCore.GameSystem.Placement
         private Vector3Int lastDetectedPosition = Vector3Int.zero;
 
         IBuildingState buildingState;
+
+        public event UnityAction OnStartPlacement;
+        public event UnityAction OnStartRemoving;
+        public event UnityAction OnStopPlacement;
 
         private void Start()
         {
@@ -69,15 +74,19 @@ namespace GameCore.GameSystem.Placement
             buildingState = new PlacementState(ID, grid, preview, database, gridData, cropData, objectPlacer, soundFeedback);
             inputManager.OnClicked += OnClick;
             inputManager.OnExit += StopPlacement;
+
+            OnStartPlacement?.Invoke();
         }
 
         public void StartRemoving()
         {
             StopPlacement();
             gridVisualization.SetActive(true);
-            buildingState = new RemovingState(grid, preview, gridData, objectPlacer, soundFeedback);
+            buildingState = new RemovingState(grid, preview, gridData, cropData, objectPlacer, soundFeedback);
             inputManager.OnClicked += OnClick;
             inputManager.OnExit += StopPlacement;
+
+            OnStartRemoving?.Invoke();
         }
 
         private void OnClick()
@@ -99,6 +108,8 @@ namespace GameCore.GameSystem.Placement
             inputManager.OnExit -= StopPlacement;
             lastDetectedPosition = Vector3Int.zero;
             buildingState = null;
+
+            OnStopPlacement?.Invoke();
         }
     }
 }

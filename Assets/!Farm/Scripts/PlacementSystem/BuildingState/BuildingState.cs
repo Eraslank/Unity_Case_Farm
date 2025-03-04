@@ -10,14 +10,21 @@ namespace GameCore.GameSystem.Placement
         protected Grid grid;
         protected PreviewSystem previewSystem;
         protected GridData gridData;
+        protected GridData cropData;
         protected ObjectPlacer objectPlacer;
         protected SoundFeedback soundFeedback;
 
-        public BuildingState(Grid grid, PreviewSystem previewSystem, GridData gridData, ObjectPlacer objectPlacer, SoundFeedback soundFeedback)
+        public BuildingState(Grid grid,
+                             PreviewSystem previewSystem,
+                             GridData gridData,
+                             GridData cropData,
+                             ObjectPlacer objectPlacer,
+                             SoundFeedback soundFeedback)
         {
             this.grid = grid;
             this.previewSystem = previewSystem;
             this.gridData = gridData;
+            this.cropData = cropData;
             this.objectPlacer = objectPlacer;
             this.soundFeedback = soundFeedback;
         }

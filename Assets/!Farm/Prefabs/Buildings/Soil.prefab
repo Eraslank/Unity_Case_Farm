@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8435477024371846560}
   - component: {fileID: 3444673474671488645}
-  m_Layer: 0
+  - component: {fileID: 5804969932147300174}
+  m_Layer: 6
   m_Name: Soil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,6 +46,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7b055b89f0031b4da5efd9556a43619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &5804969932147300174
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450953780302928999}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.5, z: 1}
+  m_Center: {x: 0.5, y: 0.25, z: 0.5}
 --- !u!1 &2166644906673277905
 GameObject:
   m_ObjectHideFlags: 0
@@ -54,7 +76,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4856479021213041169}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +110,7 @@ GameObject:
   - component: {fileID: 8157069735182071113}
   - component: {fileID: 5037907257369725276}
   - component: {fileID: 747720885854403479}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

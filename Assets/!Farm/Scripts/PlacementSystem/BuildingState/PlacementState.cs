@@ -11,8 +11,6 @@ namespace GameCore.GameSystem.Placement
         ObjectsDatabaseSO database;
         EPlaceableType placeableType;
 
-        GridData cropData;
-
         public PlacementState(int iD,
                               Grid grid,
                               PreviewSystem previewSystem,
@@ -20,11 +18,10 @@ namespace GameCore.GameSystem.Placement
                               GridData gridData,
                               GridData cropData,
                               ObjectPlacer objectPlacer,
-                              SoundFeedback soundFeedback) : base(grid, previewSystem, gridData, objectPlacer, soundFeedback)
+                              SoundFeedback soundFeedback) : base(grid, previewSystem, gridData, cropData, objectPlacer, soundFeedback)
         {
             ID = iD;
             this.database = database;
-            this.cropData = cropData;
 
             selectedObjectIndex = database.data.FindIndex(data => data.id == ID);
             if (selectedObjectIndex > -1)
@@ -88,6 +85,8 @@ namespace GameCore.GameSystem.Placement
                     index);
             }
 
+            if (spawnedObject.TryGetComponent<IPlaceable>(out var placeable))
+                placeable.OnPlace();
 
             previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), false);
         }

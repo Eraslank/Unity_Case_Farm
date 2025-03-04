@@ -7,10 +7,13 @@ namespace GameCore.GameSystem.Placement
 {
     public class RemovingState : BuildingState
     {
-        private int gameObjectIndex = -1;
-
-        public RemovingState(Grid grid, PreviewSystem previewSystem, GridData gridData, ObjectPlacer objectPlacer, SoundFeedback soundFeedback)
-            : base(grid, previewSystem, gridData, objectPlacer, soundFeedback)
+        public RemovingState(Grid grid,
+                             PreviewSystem previewSystem,
+                             GridData gridData,
+                             GridData cropData,
+                             ObjectPlacer objectPlacer,
+                             SoundFeedback soundFeedback)
+            : base(grid, previewSystem, gridData, cropData, objectPlacer, soundFeedback)
         {
             previewSystem.StartShowingRemovePreview();
         }
@@ -22,13 +25,21 @@ namespace GameCore.GameSystem.Placement
                 return;
             }
 
-            gameObjectIndex = gridData.GetGameObjectIndex(gridPosition);
+            var gameObjectIndex = gridData.GetGameObjectIndex(gridPosition);
             if (gameObjectIndex == -1)
                 return;
 
             soundFeedback.PlaySound(SoundType.Remove);
             gridData.RemoveObjectAt(gridPosition);
             objectPlacer.RemoveObjectAt(gameObjectIndex);
+
+            var cropObjectIndex = cropData.GetGameObjectIndex(gridPosition);
+            if (cropObjectIndex != -1)
+            {
+                cropData.RemoveObjectAt(gridPosition);
+                objectPlacer.RemoveObjectAt(cropObjectIndex);
+            }
+
             Vector3 cellPosition = grid.CellToWorld(gridPosition);
             previewSystem.UpdatePosition(cellPosition, !CanPlaceObjectAt(gridPosition, Vector2Int.one));
         }

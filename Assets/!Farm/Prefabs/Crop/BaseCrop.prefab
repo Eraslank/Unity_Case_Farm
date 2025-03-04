@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a73e1d7652f93f4f9c92ca95e6362fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meshParent: {fileID: 4856479021213041169}
   stages:
   - {fileID: 8661435273795970676}
   - {fileID: 1557481679048797849}

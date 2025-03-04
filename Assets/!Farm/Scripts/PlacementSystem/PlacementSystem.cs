@@ -18,6 +18,7 @@ namespace GameCore.GameSystem.Placement
         [SerializeField] SoundFeedback soundFeedback;
 
         private GridData gridData;
+        private GridData cropData;
 
         private Vector3Int lastDetectedPosition = Vector3Int.zero;
 
@@ -27,6 +28,7 @@ namespace GameCore.GameSystem.Placement
         {
             gridVisualization.SetActive(false);
             gridData = new(gridSize);
+            cropData = new(gridSize);
         }
 
         private void Update()
@@ -37,6 +39,12 @@ namespace GameCore.GameSystem.Placement
                 StartPlacement(1);
             if (Input.GetKeyDown(KeyCode.Alpha3))
                 StartPlacement(2);
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+                StartPlacement(3);
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+                StartPlacement(4);
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+                StartPlacement(5);
             if (Input.GetKeyDown(KeyCode.X))
                 StartRemoving();
 
@@ -58,7 +66,7 @@ namespace GameCore.GameSystem.Placement
         {
             StopPlacement();
             gridVisualization.SetActive(true);
-            buildingState = new PlacementState(ID, grid, preview, database, gridData, objectPlacer, soundFeedback);
+            buildingState = new PlacementState(ID, grid, preview, database, gridData, cropData, objectPlacer, soundFeedback);
             inputManager.OnClicked += OnClick;
             inputManager.OnExit += StopPlacement;
         }

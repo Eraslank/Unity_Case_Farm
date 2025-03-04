@@ -9,21 +9,27 @@ namespace GameCore.GameSystem.Placement
         private int selectedObjectIndex = -1;
         int ID;
         ObjectsDatabaseSO database;
+        EPlaceableType placeableType;
+
+        GridData cropData;
 
         public PlacementState(int iD,
                               Grid grid,
                               PreviewSystem previewSystem,
                               ObjectsDatabaseSO database,
                               GridData gridData,
+                              GridData cropData,
                               ObjectPlacer objectPlacer,
                               SoundFeedback soundFeedback) : base(grid, previewSystem, gridData, objectPlacer, soundFeedback)
         {
             ID = iD;
             this.database = database;
+            this.cropData = cropData;
 
             selectedObjectIndex = database.data.FindIndex(data => data.id == ID);
             if (selectedObjectIndex > -1)
             {
+                placeableType = database.data[selectedObjectIndex].placeableType;
                 previewSystem.StartShowingPlacementPreview(
                     database.data[selectedObjectIndex].prefab,
                     database.data[selectedObjectIndex].size);
@@ -32,9 +38,27 @@ namespace GameCore.GameSystem.Placement
                 throw new System.Exception($"No object with ID {iD}");
 
         }
+        protected override bool CanPlaceObjectAt(Vector3Int gridPosition, Vector2Int size)
+        {
+            var baseResult = base.CanPlaceObjectAt(gridPosition, size);
+            if (placeableType == EPlaceableType.Building)
+                return baseResult;
+            else //If Placing Crop
+            {
+                if (baseResult) //Has No Building (Inc. Soil)
+                    return false;
+
+                var placedObject = objectPlacer.GetObjectAt(gridData.GetGameObjectIndex(gridPosition));
+
+                if (!placedObject.TryGetComponent<Soil>(out var soil) || soil.HasCrop) //Placed Object Is Not Soil || Soil has crop
+                    return false;
+
+                return true;
+            }
+
+        }
         protected override void Click(Vector3Int gridPosition)
         {
-
             if (!CanPlaceObjectAt(gridPosition, database.data[selectedObjectIndex].size))
             {
                 soundFeedback.PlaySound(SoundType.wrongPlacement);
@@ -43,12 +67,27 @@ namespace GameCore.GameSystem.Placement
 
             soundFeedback.PlaySound(SoundType.Place);
             int index = objectPlacer.PlaceObject(database.data[selectedObjectIndex].prefab,
-                grid.CellToWorld(gridPosition));
+                grid.CellToWorld(gridPosition), out var spawnedObject);
 
-            gridData.AddObject(gridPosition,
-                database.data[selectedObjectIndex].size,
-                database.data[selectedObjectIndex].id,
-                index);
+            if(placeableType == EPlaceableType.Building)
+            {
+                gridData.AddObject(gridPosition,
+                    database.data[selectedObjectIndex].size,
+                    database.data[selectedObjectIndex].id,
+                    index);
+            }
+            else
+            {
+                var placedObject = objectPlacer.GetObjectAt(gridData.GetGameObjectIndex(gridPosition));
+                var soil = placedObject.GetComponent<Soil>();
+                soil.AddCrop(spawnedObject.GetComponent<Crop>());
+
+                cropData.AddObject(gridPosition,
+                    database.data[selectedObjectIndex].size,
+                    database.data[selectedObjectIndex].id,
+                    index);
+            }
+
 
             previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), false);
         }

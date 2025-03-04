@@ -16,4 +16,5 @@ public record ObjectData
     public int id;
     public Vector2Int size = Vector2Int.one;
     public GameObject prefab;
+    public EPlaceableType placeableType;
 }

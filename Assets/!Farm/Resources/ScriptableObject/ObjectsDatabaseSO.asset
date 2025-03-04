@@ -17,11 +17,29 @@ MonoBehaviour:
     id: 0
     size: {x: 1, y: 1}
     prefab: {fileID: 1450953780302928999, guid: 15b71c8e74f019d4b95e930291226d55, type: 3}
+    placeableType: 1
   - name: Building 2x1
     id: 1
     size: {x: 2, y: 1}
     prefab: {fileID: 5719089603515818638, guid: e478a03cd7fb3774d81b9d57a5f9943f, type: 3}
+    placeableType: 1
   - name: Building 2x2
     id: 2
     size: {x: 2, y: 2}
     prefab: {fileID: 3900740006616052894, guid: 9063078bb1373304a91de434741f1862, type: 3}
+    placeableType: 1
+  - name: Soil
+    id: 3
+    size: {x: 1, y: 1}
+    prefab: {fileID: 1450953780302928999, guid: d83362fb659ce0e4c9363a93d2ce781b, type: 3}
+    placeableType: 1
+  - name: Wheat
+    id: 4
+    size: {x: 1, y: 1}
+    prefab: {fileID: 3765746096912110219, guid: 8e93695db139fd64fafbc125c605571a, type: 3}
+    placeableType: 2
+  - name: WaterMelon
+    id: 5
+    size: {x: 1, y: 1}
+    prefab: {fileID: 3765746096912110219, guid: cf02f6712b194f042b707042c121ce3b, type: 3}
+    placeableType: 2

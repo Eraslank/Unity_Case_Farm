@@ -22,7 +22,7 @@ namespace GameCore.GameSystem.Placement
             this.soundFeedback = soundFeedback;
         }
 
-        protected bool CanPlaceObjectAt(Vector3Int gridPosition, Vector2Int size)
+        protected virtual bool CanPlaceObjectAt(Vector3Int gridPosition, Vector2Int size)
         {
             return gridData.CanPlaceObjectAt(gridPosition, size);
         }

@@ -11,9 +11,14 @@ namespace GameCore.GameSystem.Placement
 
         public int PlaceObject(GameObject prefab, Vector3 position)
         {
+            return PlaceObject(prefab, position, out _);
+        }
+        public int PlaceObject(GameObject prefab, Vector3 position, out GameObject instance)
+        {
             GameObject newObject = Instantiate(prefab);
             newObject.transform.position = position;
             placedGameObjects.Add(newObject);
+            instance = newObject;
             return placedGameObjects.Count - 1;
         }
 
@@ -24,6 +29,14 @@ namespace GameCore.GameSystem.Placement
                 return;
             Destroy(placedGameObjects[gameObjectIndex]);
             placedGameObjects[gameObjectIndex] = null;
+        }
+
+        public GameObject GetObjectAt(int gameObjectIndex)
+        {
+            if (placedGameObjects.Count <= gameObjectIndex
+                || placedGameObjects[gameObjectIndex] == null)
+                return null;
+            return placedGameObjects[gameObjectIndex];
         }
     }
 }

@@ -17,8 +17,8 @@ namespace GameCore.GameSystem.Placement
                               ObjectsDatabaseSO database,
                               GridData gridData,
                               GridData cropData,
-                              ObjectPlacer objectPlacer,
-                              SoundFeedback soundFeedback) : base(grid, previewSystem, gridData, cropData, objectPlacer, soundFeedback)
+                              ObjectPlacer objectPlacer
+                              ) : base(grid, previewSystem, gridData, cropData, objectPlacer)
         {
             ID = iD;
             this.database = database;
@@ -58,11 +58,9 @@ namespace GameCore.GameSystem.Placement
         {
             if (!CanPlaceObjectAt(gridPosition, database.data[selectedObjectIndex].size))
             {
-                soundFeedback.PlaySound(SoundType.wrongPlacement);
                 return;
             }
 
-            soundFeedback.PlaySound(SoundType.Place);
             int index = objectPlacer.PlaceObject(database.data[selectedObjectIndex].prefab,
                 grid.CellToWorld(gridPosition), out var spawnedObject);
 

@@ -12,21 +12,18 @@ namespace GameCore.GameSystem.Placement
         protected GridData gridData;
         protected GridData cropData;
         protected ObjectPlacer objectPlacer;
-        protected SoundFeedback soundFeedback;
 
         public BuildingState(Grid grid,
                              PreviewSystem previewSystem,
                              GridData gridData,
                              GridData cropData,
-                             ObjectPlacer objectPlacer,
-                             SoundFeedback soundFeedback)
+                             ObjectPlacer objectPlacer)
         {
             this.grid = grid;
             this.previewSystem = previewSystem;
             this.gridData = gridData;
             this.cropData = cropData;
             this.objectPlacer = objectPlacer;
-            this.soundFeedback = soundFeedback;
         }
 
         protected virtual bool CanPlaceObjectAt(Vector3Int gridPosition, Vector2Int size)

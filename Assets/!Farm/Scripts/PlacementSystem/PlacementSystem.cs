@@ -16,7 +16,6 @@ namespace GameCore.GameSystem.Placement
         [SerializeField] GameObject gridVisualization;
         [SerializeField] PreviewSystem preview;
         [SerializeField] ObjectPlacer objectPlacer;
-        [SerializeField] SoundFeedback soundFeedback;
 
         private GridData gridData;
         private GridData cropData;
@@ -71,7 +70,7 @@ namespace GameCore.GameSystem.Placement
         {
             StopPlacement();
             gridVisualization.SetActive(true);
-            buildingState = new PlacementState(ID, grid, preview, database, gridData, cropData, objectPlacer, soundFeedback);
+            buildingState = new PlacementState(ID, grid, preview, database, gridData, cropData, objectPlacer);
             inputManager.OnClicked += OnClick;
             inputManager.OnExit += StopPlacement;
 
@@ -82,7 +81,7 @@ namespace GameCore.GameSystem.Placement
         {
             StopPlacement();
             gridVisualization.SetActive(true);
-            buildingState = new RemovingState(grid, preview, gridData, cropData, objectPlacer, soundFeedback);
+            buildingState = new RemovingState(grid, preview, gridData, cropData, objectPlacer);
             inputManager.OnClicked += OnClick;
             inputManager.OnExit += StopPlacement;
 
@@ -91,17 +90,24 @@ namespace GameCore.GameSystem.Placement
 
         private void OnClick()
         {
-            if (inputManager.IsPointerOverUI())
-                return;
+            StartCoroutine(C_OnClick());
+            IEnumerator C_OnClick()
+            {
+                //Wait For Single Frame To Allow UI to Compute First.
+                yield return new WaitForEndOfFrame();
 
-            buildingState.OnClick(lastDetectedPosition);
+                if (inputManager.IsPointerOverUI())
+                    yield break;
+
+                buildingState.OnClick(lastDetectedPosition);
+            }
+
         }
 
         public void StopPlacement()
         {
             if (buildingState == null)
                 return;
-            soundFeedback.PlaySound(SoundType.Click);
             gridVisualization.SetActive(false);
             buildingState.EndState();
             inputManager.OnClicked -= OnClick;

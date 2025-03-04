@@ -11,9 +11,8 @@ namespace GameCore.GameSystem.Placement
                              PreviewSystem previewSystem,
                              GridData gridData,
                              GridData cropData,
-                             ObjectPlacer objectPlacer,
-                             SoundFeedback soundFeedback)
-            : base(grid, previewSystem, gridData, cropData, objectPlacer, soundFeedback)
+                             ObjectPlacer objectPlacer)
+            : base(grid, previewSystem, gridData, cropData, objectPlacer)
         {
             previewSystem.StartShowingRemovePreview();
         }
@@ -21,7 +20,6 @@ namespace GameCore.GameSystem.Placement
         {
             if (CanPlaceObjectAt(gridPosition, Vector2Int.one))
             {
-                soundFeedback.PlaySound(SoundType.wrongPlacement);
                 return;
             }
 
@@ -29,7 +27,6 @@ namespace GameCore.GameSystem.Placement
             if (gameObjectIndex == -1)
                 return;
 
-            soundFeedback.PlaySound(SoundType.Remove);
             gridData.RemoveObjectAt(gridPosition);
             objectPlacer.RemoveObjectAt(gameObjectIndex);
 

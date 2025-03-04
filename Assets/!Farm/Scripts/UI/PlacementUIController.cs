@@ -17,6 +17,8 @@ public class PlacementUIController : MonoBehaviour
 
     public void OpenContextPanel(int id)
     {
+        GameManager.Instance.PlacementSystem.StopPlacement();
+        GameManager.Instance.CameraController.isActive = false;
         contextParent.SetActive(true);
 
         buildingsContext.SetActive(id == 0);
@@ -29,6 +31,7 @@ public class PlacementUIController : MonoBehaviour
     {
         CloseContextPanel();
         GameManager.Instance.PlacementSystem.StartPlacement(id);
+        GameManager.Instance.CameraController.isActive = false;
         disablePlacementButton.SetActive(true);
     }
 
@@ -36,6 +39,7 @@ public class PlacementUIController : MonoBehaviour
     {
         CloseContextPanel();
         GameManager.Instance.PlacementSystem.StartRemoving();
+        GameManager.Instance.CameraController.isActive = false;
         disablePlacementButton.SetActive(true);
     }
 
@@ -44,5 +48,6 @@ public class PlacementUIController : MonoBehaviour
         contextParent.SetActive(false);
         disablePlacementButton.SetActive(false);
         GameManager.Instance.PlacementSystem.StopPlacement();
+        GameManager.Instance.CameraController.isActive = true;
     }
 }

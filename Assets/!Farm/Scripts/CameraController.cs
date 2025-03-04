@@ -12,8 +12,13 @@ public class CameraController : MonoBehaviour
 
     bool drag = false;
 
+    public bool isActive = true;
+
     private void LateUpdate()
     {
+        if (!isActive)
+            return;
+
         if (Input.GetMouseButton(0))
         {
             var worldPoint = cam.ScreenToWorldPoint(Input.mousePosition);

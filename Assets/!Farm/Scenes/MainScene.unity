@@ -404,7 +404,6 @@ GameObject:
   m_Component:
   - component: {fileID: 122035464}
   - component: {fileID: 122035463}
-  - component: {fileID: 122035465}
   - component: {fileID: 122035466}
   m_Layer: 0
   m_Name: PlacementSystem
@@ -432,7 +431,6 @@ MonoBehaviour:
   gridVisualization: {fileID: 919788078}
   preview: {fileID: 118762239}
   objectPlacer: {fileID: 122035466}
-  soundFeedback: {fileID: 122035465}
 --- !u!4 &122035464
 Transform:
   m_ObjectHideFlags: 0
@@ -448,23 +446,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &122035465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 122035462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3251e4f775944f478bbbd8b5a4f8369, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clickSound: {fileID: 0}
-  placeSound: {fileID: 0}
-  removeSound: {fileID: 0}
-  wrongPlacementSound: {fileID: 0}
-  audioSource: {fileID: 0}
 --- !u!114 &122035466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2554,6 +2535,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 963194227}
   boundry: {x: 5, y: 0, z: 5}
+  isActive: 1
 --- !u!1 &938846338
 GameObject:
   m_ObjectHideFlags: 0
@@ -3606,6 +3588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placementSystem: {fileID: 122035463}
+  cameraController: {fileID: 928715057}
   physicsRaycaster: {fileID: 963194230}
 --- !u!1 &1520425361
 GameObject:

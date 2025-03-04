@@ -7,9 +7,11 @@ using UnityEngine.EventSystems;
 public class GameManager : MonoBehaviourSingleton<GameManager>
 {
     [SerializeField] PlacementSystem placementSystem;
+    [SerializeField] CameraController cameraController;
     [SerializeField] PhysicsRaycaster physicsRaycaster;
 
     public PlacementSystem @PlacementSystem => placementSystem;
+    public CameraController @CameraController => cameraController;
     private void Start()
     {
         Soil.S_CanHarvest = false;
